@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial OWL Odoo 17</title> <!-- Judul default, akan diubah oleh JS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 id="main-heading">Memuat Tutorial...</h1> <!-- H1 default, akan diubah oleh JS -->
+        <button id="theme-toggle">Mode Gelap</button>
+    </header>
+
+    <div class="video-container" id="video-player-container" style="display:none;"> <!-- Sembunyikan secara default -->
+        <iframe
+          id="tutorial-video-iframe"
+          src="https://drive.google.com/file/d/1V_TPUB9KRpJYnAvSp4z6NxmfUsTfDYQh/preview"
+          width="640"
+          height="480"
+          allow="autoplay"
+          allowfullscreen="true"
+          title="Video Tutorial"
+        ></iframe>
+    </div>
+
+    <main id="markdown-content" class="tutorial-content" data-markdown-file=""> <!-- data-markdown-file akan diisi JS -->
+        <!-- Konten Markdown akan dimuat di sini -->
+    </main>
+
+    <div class="navigation-links">
+        <a id="prev-page-link" href="#" class="nav-link prev-link" style="display:none;"></a>
+        <span id="nav-spacer" style="margin: 0 10px; display:none;"></span> <!-- Untuk spasi jika kedua link ada -->
+        <a id="next-page-link" href="#" class="nav-link next-link" style="display:none;"></a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>

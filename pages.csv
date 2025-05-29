@@ -1,0 +1,4 @@
+id,page_title,h1_content,iframe_src,markdown_file,prev_id,prev_text,next_id,next_text
+01.intro,OWL Odoo 17 - Intro,Intro OWL,https://drive.google.com/file/d/1V_TPUB9KRpJYnAvSp4z6NxmfUsTfDYQh/preview,01.intro.md,,02.environment,02. Environment,
+02.environment,OWL Odoo 17 - Environtment,Environtment OWL,,02.environtment.md,01.intro,01. Intro,,
+03.environment,,,,,,,,
