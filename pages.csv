@@ -1,4 +1,12 @@
 id,page_title,h1_content,iframe_src,markdown_file,prev_id,prev_text,next_id,next_text
-01.intro,OWL Odoo 17 - Intro,Intro OWL,https://drive.google.com/file/d/1V_TPUB9KRpJYnAvSp4z6NxmfUsTfDYQh/preview,01.intro.md,,02.environment,02. Environment,
-02.environment,OWL Odoo 17 - Environtment,Environtment OWL,,02.environtment.md,01.intro,01. Intro,,
-03.environment,,,,,,,,
+01.intro,OWL Odoo 17 - Intro,Intro OWL,https://drive.google.com/file/d/1V_TPUB9KRpJYnAvSp4z6NxmfUsTfDYQh/preview,tutorials/01.intro.md,,,02.environment,Next 02 Environment
+02.environment,OWL Odoo 17 - Environtment,Environtment OWL,https://drive.google.com/file/d/1kcQsp0TNB9tuz5x8R5xlop9rXEC8SwNt/preview,tutorials/02.environtment.md,01.intro,Prev 01. Intro,03.assets_bundles,Next 03 Assets & Bundles
+03.assets_bundles,OWL Odoo 17 - Assets & Bundles,Assets & Bundles,https://drive.google.com/file/d/1oRo0ZJwen-h8WGvN26xHq8MTrKGJ5oQ0/preview,tutorials/03.assets_bundles.md,02.environtmend,Prev 02. Environtmend,04.hand-on_setup,Next 04 Hand-on Setup
+04.hand-on_setup,OWL Odoo 17 - Hand-on Setup,Hand-on Setup,https://drive.google.com/file/d/1AU1WLxYGofqueiupAX_7JHBqSMsa-paj/preview,tutorials/04.hand-on_setup.md,03.assets_bundles,Prev 03 Assets & Bundles,05.components,Next 05 Components
+05.components,OWL Odoo 17 - Components,Components,https://drive.google.com/file/d/1S7YcZrBFnEg43JQVv5UAvPsJo9_TQ2Lc/preview,tutorials/05.components.md,04.hand-on_setup,Prev 04 Hand-on Setup,06.tips_tricks,Next 06 Tips & Tricks
+06.tips_tricks,OWL Odoo 17 - Tips & Tricks,Tips & Tricks,https://drive.google.com/file/d/1VFNnC2PAkFvKjtDPd3qamUlka8ClgSgf/preview,tutorials/06.tips_tricks.md,05.components,Prev 05 Components,07.hands-on_put_component_in_backend_view,Next 07 Hands-on Put Component in Backend View
+07.hands-on_put_component_in_backend_view,OWL Odoo 17 - Hands-on Put Component in Backend View,Hands-on Put Component in Backend View,https://drive.google.com/file/d/1dxV_AunhJFLssXe5Z79WrZaVYrqb9ln-/preview,tutorials/07.hands-on_put_component_in_backend_view.md,06.tips_tricks,Prev 06 Tips & Tricks,08.sub-components,Next 08 Sub-components
+08.sub-components,OWL Odoo 17 - Sub-components,Sub-components,https://drive.google.com/file/d/1gDS8_BL6PndwTL7cIORp0uUe1cFaK7Rk/preview,tutorials/08.sub-components.md,07.hands-on_put_component_in_backend_view,Prev 07 Hands-on Put Component in Backend View,09.templates,Next 09 Templates
+09.templates,OWL Odoo 17 - Templates,Templates,https://drive.google.com/file/d/1rBaRLbm7K4vcxMVMFlshRpiJsaY_gos-/preview,tutorials/09.templates.md,08.sub-components,Prev 08 Sub-components,10.rendering_context,Next 10 Rendering Context
+10.rendering_context,OWL Odoo 17 - Rendering Context,Rendering Context,https://drive.google.com/file/d/1PNW9sGPI6UKWFdeSAEg1KqMW_vGKrIlI/preview,tutorials/10.rendering_context.md,09.templates,Prev 09 Templates,11.slots,Next 11 Slots
+11.slots,OWL Odoo 17 - Slots,Slots,https://drive.google.com/file/d/1gEIVqPjV6VXsJRb7zFfMgNGJ02UbCBx-/preview,tutorials/11.slots.md,10.rendering_context,Prev 10 Rendering Context,,
