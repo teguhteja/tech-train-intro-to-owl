@@ -183,3 +183,42 @@ body.dark-mode .nav-link {
 .nav-link:hover {
     opacity: 0.8;
 }
+
+/* Tambahkan atau modifikasi aturan ini di style.css Anda */
+
+.navigation-links {
+    display: flex; /* Mengaktifkan layout flexbox */
+    align-items: center; /* Menyelaraskan item secara vertikal di tengah */
+    
+    /* Mengatur agar kontainer navigasi lebarnya 80% dari parent dan terpusat */
+    width: 80%; 
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Anda bisa menambahkan margin atas/bawah jika perlu spasi dari elemen lain */
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    /* Properti 'gap' bisa digunakan untuk memberi jarak antar item flex (link dan spacer)
+       jika Anda ingin menggantikan margin inline pada #nav-spacer. Contoh:
+       gap: 10px; 
+    */
+}
+
+#nav-spacer {
+    flex-grow: 1; /* Ini kunci utamanya: membuat spacer mengisi semua ruang kosong yang tersedia */
+    /* Inline style 'margin: 0 10px;' pada elemen span di HTML akan tetap berlaku.
+       Ini berarti akan ada margin 10px di kiri dan kanan spacer itu sendiri.
+       Jika spacer ini murni untuk memberi jarak dan tidak ada konten/border,
+       margin ini akan menjadi bagian dari total jarak.
+    */
+    /* Jika Anda ingin ada teks di dalam spacer (misalnya nomor halaman), Anda bisa tambahkan:
+       text-align: center; 
+    */
+}
+
+#prev-page-link, #next-page-link {
+    flex-shrink: 0; /* Mencegah link menyusut jika ruang terbatas */
+    /* Anda bisa menambahkan padding pada link untuk area klik yang lebih baik */
+    padding: 5px 10px; 
+}
