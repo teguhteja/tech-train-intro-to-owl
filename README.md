@@ -1,60 +1,101 @@
-# Technical Training - Introduction to OWL
+# Interactive OWL Odoo 17 Tutorial
 
-This project is a technical training platform designed to introduce OWL (Odoo Web Library). This web application presents tutorial content in Markdown format, equipped with a video player, and page navigation to facilitate the learning process.
+This project is an interactive web platform designed to present a series of tutorials on OWL (Odoo Web Library) for Odoo 17. Tutorial content is dynamically loaded from Markdown files and can include supporting videos. The platform also features easy navigation, a sidebar for the tutorial list, and light/dark theme support.
 
 ## Key Features
 
-*   **Dynamic Content**: Loads and displays tutorial content from Markdown files.
-*   **Integrated Video Player**: Embeds and displays tutorial videos (e.g., from Google Drive) to complement the text material.
-*   **Page Navigation**: "Previous" and "Next" buttons to move between tutorial sections sequentially.
-*   **Theme Toggler**: Feature to switch between light mode and dark mode for reading comfort.
-*   **Dynamic Titles**: Page title and main heading are dynamically updated according to the currently displayed tutorial content.
+-   **Dynamic Content**: Tutorials are loaded from a CSV file (`pages.csv`) that defines each page, including title, Markdown file, video link, and navigation.
+-   **Navigation Sidebar**: A sidebar displays a list of all available tutorials, making it easy for users to switch between topics.
+-   **Integrated Video Player**: Can display embedded tutorial videos (e.g., from Google Drive).
+-   **Markdown Rendering**: Tutorial content is written in Markdown format and rendered into HTML using `marked.js`.
+-   **Page Navigation**: "Previous" and "Next" links for sequential navigation between tutorials.
+-   **Light/Dark Theme**: Users can switch between light and dark modes, and theme preference is saved in `localStorage`.
+-   **Basic Responsive Design**: A basic layout that accommodates the sidebar and main content area.
 
 ## Project Structure
 
 ```
 tech-train-intro-to-owl/
-├── index.html          # Main HTML file, application skeleton
-├── style.css           # CSS file for styling
-├── script.js           # JavaScript file for application logic (loading content, navigation, theme)
-├── tutorials/          # (Recommended) Directory for storing Markdown tutorial files
-│   ├── tutorial1.md
-│   └── tutorial2.md
-└── README.md           # This file
+├── index.html          # Main HTML page structure
+├── style.css           # CSS file for styling, including themes and sidebar layout
+├── script.js           # JavaScript logic for dynamic functionality
+├── pages.csv           # Configuration file for the list of tutorials and their content
+└── content/              # Recommended directory for storing Markdown files
+    ├── tutorial1.md
+    └── tutorial2.md
+    └── ...
 ```
 
-## How to Use
+## How It Works
 
-1.  **Clone Repository (If on Git)**:
-    ```bash
-    git clone <your-repository-url>
-    cd tech-train-intro-to-owl
+1.  **Initialization**:
+    *   When the page loads (`DOMContentLoaded`), `script.js` fetches and parses the `pages.csv` file.
+    *   The `pages.csv` file contains information for each tutorial page, such as `id`, `page_title`, `h1_content`, `markdown_file`, `iframe_src`, `prev_id`, `next_id`, `prev_text`, and `next_text`.
+
+2.  **Page Determination**:
+    *   The script checks for a `page` parameter in the URL (e.g., `index.html?page=intro-owl`).
+    *   If no parameter is present, the first page from `pages.csv` is loaded by default.
+
+3.  **Content Loading**:
+    *   Based on the active page `id`, `script.js` will:
+        *   Update the page title (`<title>`) and main heading (`<h1>`).
+        *   Show or hide the video container and set the iframe `src` if a video link exists.
+        *   Load and render the corresponding Markdown file into the `<main id="markdown-content">` element using `marked.js`.
+
+4.  **Sidebar**:
+    *   The `populateSidebar` function fills the tutorial list (`<ul id="tutorial-list">`) in the sidebar.
+    *   Each item is a link to the corresponding tutorial page.
+    *   The currently active tutorial is marked with an `.active` class.
+
+5.  **Navigation**:
+    *   "Previous" and "Next" links are updated based on the `prev_id`, `next_id`, `prev_text`, and `next_text` data from `pages.csv` for the currently active page.
+
+6.  **Theme Management**:
+    *   Users can click the "Dark Mode"/"Light Mode" button to switch themes.
+    *   A `dark-mode` class is added or removed from the `<body>` element.
+    *   Theme preference is stored in `localStorage` and applied on subsequent visits.
+    *   The theme can also follow operating system preferences if no theme is manually saved.
+
+## `pages.csv` Setup
+
+The `pages.csv` file is central to the tutorial content. Each row (after the header) represents one tutorial page. Here is an example of the column structure:
+
+```csv
+id,page_title,h1_content,markdown_file,iframe_src,prev_id,prev_text,next_id,next_text
+intro-owl,Introduction to OWL,OWL Basics,content/01-intro-owl.md,https://link-to-video-1/preview, , ,component-basic,Next: Basic Components &raquo;
+component-basic,OWL Basic Components,Creating Basic Components,content/02-component-basic.md,https://link-to-video-2/preview,intro-owl,&laquo; Previous: Introduction,state-props,Next: State & Props &raquo;
+...
+```
+
+*   **`id`**: Unique identifier for the page (used in the URL).
+*   **`page_title`**: Text for the browser's `<title>` tag.
+*   **`h1_content`**: Text for the main `<h1>` heading on the page.
+*   **`markdown_file`**: Relative path to the `.md` file containing the tutorial content.
+*   **`iframe_src`**: URL for the video iframe `src` (leave empty if no video).
+*   **`prev_id`**: `id` of the previous tutorial page (leave empty if this is the first page).
+*   **`prev_text`**: Text for the "Previous" link (can contain HTML like `&laquo;`).
+*   **`next_id`**: `id` of the next tutorial page (leave empty if this is the last page).
+*   **`next_text`**: Text for the "Next" link (can contain HTML like `&raquo;`).
+
+## Dependencies
+
+-   **Marked.js**: Used to render Markdown content. Loaded via CDN in `index.html`.
+    ```html
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     ```
-2.  **Open `index.html`**:
-    Open the `index.html` file directly in your preferred web browser (e.g., Google Chrome, Firefox).
 
-3.  **Tutorial Configuration**:
-    *   The logic for loading Markdown files and setting up navigation is likely in `script.js`. You may need to edit an array or configuration object within that file to define the order and paths of your Markdown tutorial files.
-    *   Ensure your Markdown files are placed in the correct location (e.g., in a `tutorials/` directory) and their paths match those configured in `script.js`.
+## How to Run Locally
 
-## Technologies Used
-
-*   **HTML5**: For the basic structure of the web page.
-*   **CSS3**: For styling and visual appearance.
-*   **JavaScript (ES6+)**: For dynamic functionality, user interaction, and application logic.
-*   **Marked.js**: JavaScript library for parsing and rendering Markdown text into HTML.
+1.  Ensure all files (`index.html`, `style.css`, `script.js`, `pages.csv`) are in the same directory.
+2.  Create a `content/` directory (or as per the path you use in `pages.csv`) and place your tutorial Markdown files inside it.
+3.  Open the `index.html` file in your browser.
+    *   Since this project uses `fetch()` to load `pages.csv` and Markdown files, you might need to run a simple local web server to avoid CORS issues if opening directly from the file system (`file:///...`). Many browser extensions or simple commands (like `python -m http.server` or `npx serve`) can be used for this.
 
 ## Contributing
 
-If you wish to contribute to this project, please fork the repository and create a pull request. For major changes, please open an issue first to discuss what you would like to change.
-
-## Development Roadmap (Optional)
-
-*   [ ] Implement tutorial content search.
-*   [ ] Add learning progress indicator.
-*   [ ] Integrate interactive OWL code examples directly on the page.
-*   [ ] Accessibility improvements.
+Suggestions and contributions for improvements are always welcome. Feel free to create an *issue* or *pull request*.
 
 ---
 
-*This README was generated based on an analysis of the `index.html` file and common functionalities in similar projects. Please adjust the details to more accurately reflect your specific implementation in `script.js` and your file structure.*
+*This README was generated based on the existing project structure and functionality.*
+```

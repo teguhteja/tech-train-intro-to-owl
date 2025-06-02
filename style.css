@@ -22,15 +22,86 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     line-height: 1.7;
     margin: 0;
-    padding: 0 20px 20px 20px;
+    /* padding: 0 20px 20px 20px; Menggantinya dengan padding di wrapper konten */
     background-color: var(--bg-color-light);
     color: var(--text-color-light);
     transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex; /* Untuk layout sidebar dan konten utama */
 }
 
 body.dark-mode {
     background-color: var(--bg-color-dark);
     color: var(--text-color-dark);
+}
+
+#sidebar {
+    width: 280px; /* Lebar sidebar, bisa disesuaikan */
+    min-width: 220px; /* Lebar minimum sidebar */
+    height: 100vh; /* Tinggi penuh viewport */
+    background-color: var(--header-bg-light); /* Warna latar sedikit beda */
+    border-right: 1px solid var(--border-color-light);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Scroll jika konten sidebar panjang */
+    position: fixed; /* Sidebar tetap di tempat saat scroll */
+    top: 0;
+    left: 0;
+    z-index: 1001; /* Di atas header jika ada tumpang tindih (seharusnya tidak) */
+    transition: background-color 0.3s ease, border-right-color 0.3s ease;
+}
+
+body.dark-mode #sidebar {
+    background-color: var(--header-bg-dark);
+    border-right-color: var(--border-color-dark);
+}
+
+#sidebar h2 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-color-light);
+}
+body.dark-mode #sidebar h2 {
+    color: var(--text-color-dark);
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar ul li a {
+    display: block;
+    padding: 8px 10px;
+    text-decoration: none;
+    color: var(--link-color-light);
+    border-radius: 4px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#sidebar ul li a:hover,
+#sidebar ul li a.active { /* Gaya untuk link aktif/hover */
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode #sidebar ul li a {
+    color: var(--link-color-dark);
+}
+
+body.dark-mode #sidebar ul li a:hover,
+body.dark-mode #sidebar ul li a.active {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+.page-content-wrapper {
+    flex-grow: 1; /* Mengambil sisa lebar */
+    padding: 0 20px 20px 20px; /* Padding yang sebelumnya ada di body */
+    margin-left: 280px; /* Sama dengan lebar sidebar, agar tidak tumpang tindih */
+    /* overflow-y: auto; Jika konten utama juga perlu scroll independen */
 }
 
 header {
@@ -40,10 +111,10 @@ header {
     padding: 15px 0;
     border-bottom: 1px solid var(--border-color-light);
     margin-bottom: 25px;
-    background-color: var(--bg-color-light); /* To ensure header bg matches body */
+    background-color: var(--bg-color-light);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Di bawah sidebar */
     transition: background-color 0.3s ease, border-bottom-color 0.3s ease;
 }
 
@@ -96,7 +167,7 @@ iframe {
 .tutorial-content {
     max-width: 800px;
     margin: 0 auto 40px auto;
-    padding: 0 15px;
+    padding: 0 15px; /* Padding internal untuk konten markdown */
 }
 
 h1, h2, h3, h4 {
@@ -158,8 +229,8 @@ strong {
 
 .navigation-links {
     max-width: 800px;
-    margin: 30px auto 40px auto;
-    padding: 0 15px;
+    margin: 30px auto 40px auto; /* Tetap terpusat di dalam .page-content-wrapper */
+    padding: 0 15px; /* Padding internal */
     text-align: right; /* Align link to the right */
 }
 
@@ -189,12 +260,12 @@ body.dark-mode .nav-link {
 .navigation-links {
     display: flex; /* Mengaktifkan layout flexbox */
     align-items: center; /* Menyelaraskan item secara vertikal di tengah */
-    
+
     /* Mengatur agar kontainer navigasi lebarnya 80% dari parent dan terpusat */
-    width: 80%; 
+    /* width: 80%;  -- max-width: 800px dan margin: auto sudah cukup untuk centering */
     margin-left: auto;
     margin-right: auto;
-    
+
     /* Anda bisa menambahkan margin atas/bawah jika perlu spasi dari elemen lain */
     margin-top: 20px;
     margin-bottom: 20px;
@@ -202,7 +273,7 @@ body.dark-mode .nav-link {
     /* Properti 'gap' bisa digunakan untuk memberi jarak antar item flex (link dan spacer)
        jika Anda ingin menggantikan margin inline pada #nav-spacer. Contoh:
        gap: 10px; 
-    */
+    */   
 }
 
 #nav-spacer {

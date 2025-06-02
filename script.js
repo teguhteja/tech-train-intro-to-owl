@@ -172,6 +172,30 @@ function updateNavigationLinks(pageInfo) {
     }
 }
 
+// Fungsi untuk mempopulasi sidebar
+function populateSidebar(pages, currentPageId) {
+    const tutorialList = document.getElementById('tutorial-list');
+    if (!tutorialList) {
+        console.error('Elemen #tutorial-list tidak ditemukan untuk sidebar.');
+        return;
+    }
+    tutorialList.innerHTML = ''; // Kosongkan list sebelum mengisi
+
+    pages.forEach(page => {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `index.html?page=${page.id}`;
+        // Gunakan page_title atau h1_content sebagai teks link, dengan fallback
+        link.textContent = page.page_title || page.h1_content || `Halaman ${page.id}`;
+        
+        if (page.id === currentPageId) {
+            link.classList.add('active'); // Tandai link aktif
+        }
+
+        listItem.appendChild(link);
+        tutorialList.appendChild(listItem);
+    });
+}
 // Fungsi utama untuk inisialisasi halaman
 async function initializePage() {
     try {
@@ -182,8 +206,8 @@ async function initializePage() {
 
         if (allPagesData.length === 0) {
             console.error("Tidak ada data halaman yang dimuat dari CSV.");
-            const contentArea = document.getElementById('markdown-content') || document.body;
-            contentArea.innerHTML = '<p style="color:red;">Error: Data konfigurasi halaman tidak ditemukan atau CSV kosong.</p>';
+            const mainContentArea = document.querySelector('.page-content-wrapper #markdown-content') || document.querySelector('.page-content-wrapper') || document.body;
+            mainContentArea.innerHTML = '<p style="color:red;">Error: Data konfigurasi halaman tidak ditemukan atau CSV kosong.</p>';
             return;
         }
 
@@ -194,6 +218,9 @@ async function initializePage() {
             // window.history.replaceState({}, '', `index.html?page=${currentPageId}`);
         }
         
+        // Populasi sidebar dengan data halaman dan tandai halaman aktif
+        populateSidebar(allPagesData, currentPageId);
+
         const pageInfo = allPagesData.find(p => p.id === currentPageId);
 
         if (pageInfo) {
@@ -201,20 +228,23 @@ async function initializePage() {
             updateNavigationLinks(pageInfo);
         } else {
             console.error(`Data untuk halaman dengan ID "${currentPageId}" tidak ditemukan.`);
-            const contentArea = document.getElementById('markdown-content') || document.body;
-            contentArea.innerHTML = `<p style="color:red;">Error: Halaman "${currentPageId}" tidak ditemukan.</p>`;
+            const mainContentArea = document.querySelector('.page-content-wrapper #markdown-content') || document.querySelector('.page-content-wrapper') || document.body;
+            mainContentArea.innerHTML = `<p style="color:red;">Error: Halaman "${currentPageId}" tidak ditemukan.</p>`;
             // Mungkin tampilkan halaman pertama sebagai fallback atau halaman error khusus
             if (allPagesData.length > 0) {
                  console.log("Menampilkan halaman pertama sebagai fallback.");
-                 updatePageElements(allPagesData[0]); 
+                 const fallbackPageId = allPagesData[0].id;
+                 updatePageElements(allPagesData[0]);
                  updateNavigationLinks(allPagesData[0]);
+                 // Perbarui juga item aktif di sidebar jika fallback
+                 populateSidebar(allPagesData, fallbackPageId);
             }
         }
 
     } catch (error) {
         console.error('Error saat inisialisasi halaman:', error);
-        const contentArea = document.getElementById('markdown-content') || document.body;
-        contentArea.innerHTML = '<p style="color: red;">Terjadi kesalahan saat memuat halaman. Periksa konsol untuk detail.</p>';
+        const mainContentArea = document.querySelector('.page-content-wrapper #markdown-content') || document.querySelector('.page-content-wrapper') || document.body;
+        mainContentArea.innerHTML = '<p style="color: red;">Terjadi kesalahan saat memuat halaman. Periksa konsol untuk detail.</p>';
     }
 }
 
